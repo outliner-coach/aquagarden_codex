@@ -1,0 +1,6 @@
+output/
+*.swp
+aq-*.png
+captures-*.png
+aquarium-preview.png
+aquarium-preview-final.png

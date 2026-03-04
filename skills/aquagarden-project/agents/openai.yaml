@@ -1,0 +1,4 @@
+interface:
+  display_name: "AquaGarden Project"
+  short_description: "디지털 수족관 프로젝트 설계·구현 운영 가이드"
+  default_prompt: "Use $aquagarden-project to continue work on the digital aquarium project by reading AGENTS.md, PLAN.md, PROGRESS.md, and references first."
