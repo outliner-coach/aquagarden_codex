@@ -938,6 +938,41 @@
         }
       }
 
+      function addMossCurtain(position, strandCount, length, spread, hueShift = 0) {
+        const curtain = new THREE.Group();
+        curtain.position.copy(position);
+        woodGroup.add(curtain);
+
+        for (let i = 0; i < strandCount; i += 1) {
+          const strandGeo = new THREE.PlaneGeometry(rand(0.025, 0.05), rand(length * 0.65, length), 1, 8);
+          const pos = strandGeo.attributes.position;
+
+          for (let j = 0; j < pos.count; j += 1) {
+            const yRatio = (pos.getY(j) + strandGeo.parameters.height * 0.5) / strandGeo.parameters.height;
+            pos.setX(j, pos.getX(j) + Math.sin(yRatio * Math.PI * 1.4) * rand(0.01, 0.035));
+            pos.setZ(j, Math.sin(yRatio * Math.PI) * rand(0.008, 0.03));
+          }
+
+          pos.needsUpdate = true;
+          strandGeo.computeVertexNormals();
+
+          const strandMat = new THREE.MeshStandardMaterial({
+            color: 0x6f9d52,
+            roughness: 0.9,
+            metalness: 0,
+            transparent: true,
+            opacity: 0.86,
+            side: THREE.DoubleSide
+          });
+          strandMat.color.offsetHSL(hueShift + rand(-0.015, 0.02), rand(-0.04, 0.04), rand(-0.08, 0.08));
+
+          const strand = new THREE.Mesh(strandGeo, strandMat);
+          strand.position.set(rand(-spread, spread), -rand(0, spread * 0.12), rand(-spread * 0.7, spread * 0.7));
+          strand.rotation.set(rand(-0.15, 0.2), rand(0, Math.PI * 2), rand(-0.35, 0.35));
+          curtain.add(strand);
+        }
+      }
+
       addTaperedBranch(
         [
           [-6.95, 1.45, -2.0],
@@ -951,6 +986,33 @@
         0.18,
         woodMat,
         22
+      );
+
+      addTaperedBranch(
+        [
+          [-6.45, 1.25, -1.45],
+          [-5.25, 1.95, -0.85],
+          [-4.0, 2.55, -0.55],
+          [-2.65, 2.92, -0.35],
+          [-1.05, 3.02, -0.15]
+        ],
+        0.17,
+        0.09,
+        darkWoodMat,
+        16
+      );
+
+      addTaperedBranch(
+        [
+          [-5.85, 1.4, -2.35],
+          [-5.1, 2.1, -2.95],
+          [-4.25, 3.0, -3.15],
+          [-3.15, 4.0, -3.05]
+        ],
+        0.12,
+        0.052,
+        darkWoodMat,
+        12
       );
 
       addTaperedBranch(
@@ -1061,14 +1123,62 @@
         8
       );
 
+      addTaperedBranch(
+        [
+          [-4.35, 3.25, -1.6],
+          [-3.55, 4.3, -1.05],
+          [-2.75, 5.0, -0.35],
+          [-1.95, 5.55, 0.25]
+        ],
+        0.07,
+        0.022,
+        woodMat,
+        10
+      );
+
+      addTaperedBranch(
+        [
+          [-3.55, 3.85, -2.0],
+          [-2.9, 4.8, -2.5],
+          [-2.2, 5.45, -3.0],
+          [-1.55, 6.0, -3.35]
+        ],
+        0.065,
+        0.02,
+        darkWoodMat,
+        10
+      );
+
+      addTaperedBranch(
+        [
+          [-1.65, 4.55, -0.88],
+          [-0.85, 5.1, -0.25],
+          [0.05, 5.45, 0.42],
+          [0.95, 5.75, 1.02]
+        ],
+        0.07,
+        0.024,
+        woodMat,
+        10
+      );
+
       addMossCluster(new THREE.Vector3(-5.55, 2.1, -2.05), 18, 0.22);
       addMossCluster(new THREE.Vector3(-4.75, 3.2, -1.72), 16, 0.2);
       addMossCluster(new THREE.Vector3(-3.85, 4.08, -1.82), 14, 0.18);
       addMossCluster(new THREE.Vector3(-2.85, 4.9, -1.35), 15, 0.18);
       addMossCluster(new THREE.Vector3(-4.15, 3.95, -2.25), 10, 0.16);
+      addMossCluster(new THREE.Vector3(-5.15, 1.78, -1.35), 20, 0.25);
+      addMossCluster(new THREE.Vector3(-3.15, 3.45, -0.88), 16, 0.22);
+      addMossCluster(new THREE.Vector3(-1.95, 4.55, -0.65), 14, 0.18);
       addAttachedLeafCluster(new THREE.Vector3(-5.2, 2.3, -1.9), 10, 0.18, -0.04);
       addAttachedLeafCluster(new THREE.Vector3(-3.95, 3.95, -1.95), 12, 0.2, -0.03);
       addAttachedLeafCluster(new THREE.Vector3(-2.9, 4.75, -1.4), 9, 0.16, 0.01);
+      addAttachedLeafCluster(new THREE.Vector3(-4.65, 2.65, -0.95), 12, 0.2, -0.02);
+      addAttachedLeafCluster(new THREE.Vector3(-2.15, 4.15, -0.72), 10, 0.18, -0.01);
+      addMossCurtain(new THREE.Vector3(-4.95, 2.6, -1.62), 12, 0.5, 0.18, -0.03);
+      addMossCurtain(new THREE.Vector3(-3.55, 3.7, -1.82), 11, 0.44, 0.16, -0.02);
+      addMossCurtain(new THREE.Vector3(-2.4, 4.72, -1.22), 9, 0.34, 0.12, 0.01);
+      addMossCurtain(new THREE.Vector3(-1.58, 4.96, -0.42), 8, 0.28, 0.1, 0.02);
 
       markInteractive(
         woodGroup,

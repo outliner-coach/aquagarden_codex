@@ -269,6 +269,25 @@
 - 인수인계 메모
   - 존재감은 확실히 좋아졌지만, 이후 `AQ-101`을 다시 잡을 때 유목 포컬 포인트 위치를 같이 검토하는 편이 좋다.
 
+#### AQ-109 추가 기록 3
+
+- 완료 내용
+  - 사용자 피드백에 맞춰 유목 밀도를 다시 높였다.
+  - 메인 유목 하부와 후방에 추가 분지를 넣어 화면에서 읽히는 목재 질량을 키웠다.
+  - 유목 접합부와 가지 아래에 녹색 이끼 클러스터와 늘어지는 이끼 커튼을 추가해 더 자연스러운 활착 느낌을 만들었다.
+- 변경 파일
+  - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+- 검증
+  - 추출 스크립트 기준 `node --check` 통과
+  - Playwright 브라우저 로드 확인
+  - 콘솔 메시지 `0`건
+  - 캡처 저장
+    - `/Users/friends/ai/aquagarden_2026_codex/aq-driftwood-moss-v1.png`
+- 인수인계 메모
+  - 유목 존재감은 이전보다 분명히 좋아졌지만, 이후 `AQ-101`을 재개할 때 메인 포컬 포인트와 수영 공간을 침범하지 않는지 같이 점검하는 편이 맞다.
+
 #### AQ-110 추가 기록 2
 
 - 완료 내용
