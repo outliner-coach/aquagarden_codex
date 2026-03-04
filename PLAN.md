@@ -42,6 +42,7 @@
 | DOC-004 | done | P3 | 레퍼런스 폴더 및 조사 문서 작성 | `references/` 폴더와 조사 요약 문서가 생성된다 | 2026-03-05 완료 |
 | DOC-005 | done | P3 | 프로젝트 커맨드 구조 및 스킬 정의 | `skills/aquagarden-project/`가 생성되고 작업 명령 구조가 정리된다 | 2026-03-05 완료 |
 | DOC-006 | done | P3 | 프로젝트 스킬 설치 | `aquagarden-project` 스킬이 `$CODEX_HOME/skills`에 설치된다 | 2026-03-05 완료. Codex 재시작 시 인식 |
+| DOC-008 | done | P3 | GitHub 원격 저장소 업로드 | 로컬 프로젝트가 `outliner-coach/aquagarden_codex`에 push된다 | 2026-03-05 완료 |
 | QA-001 | todo | P2 | 시각 검증 체크리스트 정리 | 브라우저 확인 항목과 캡처 기준이 문서화된다 | PROGRESS 기록 품질 향상 목적 |
 
 ---

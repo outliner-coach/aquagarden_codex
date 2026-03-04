@@ -313,6 +313,22 @@
 - 인수인계 메모
   - 저장소 첫 화면에서 바로 실행 방법을 확인할 수 있는 최소 문서 수준이다.
 
+#### DOC-008
+
+- 완료 내용
+  - 로컬 프로젝트를 Git 저장소로 초기화했다.
+  - 원격 `https://github.com/outliner-coach/aquagarden_codex.git`를 연결하고 `main` 브랜치로 push했다.
+- 변경 파일
+  - `/Users/friends/ai/aquagarden_2026_codex/.git`
+  - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
+- 검증
+  - Git 커밋 생성 완료
+  - `main -> main` push 성공
+  - 원격 추적 브랜치 설정 완료
+- 인수인계 메모
+  - 현재 커밋 해시는 `903ffa2`다.
+
 ### 2026-02-22
 
 #### APP-001
