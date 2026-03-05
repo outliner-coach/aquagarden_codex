@@ -43,6 +43,7 @@
 | DOC-005 | done | P3 | 프로젝트 커맨드 구조 및 스킬 정의 | `skills/aquagarden-project/`가 생성되고 작업 명령 구조가 정리된다 | 2026-03-05 완료 |
 | DOC-006 | done | P3 | 프로젝트 스킬 설치 | `aquagarden-project` 스킬이 `$CODEX_HOME/skills`에 설치된다 | 2026-03-05 완료. Codex 재시작 시 인식 |
 | DOC-008 | done | P3 | GitHub 원격 저장소 업로드 | 로컬 프로젝트가 `outliner-coach/aquagarden_codex`에 push된다 | 2026-03-05 완료 |
+| DOC-009 | done | P3 | GitHub Pages 엔트리 파일 정렬 | 루트 엔트리를 `index.html`로 통일해 GitHub Pages 기본 경로에서 앱이 열린다 | 2026-03-05 완료 |
 | QA-001 | todo | P2 | 시각 검증 체크리스트 정리 | 브라우저 확인 항목과 캡처 기준이 문서화된다 | PROGRESS 기록 품질 향상 목적 |
 
 ---

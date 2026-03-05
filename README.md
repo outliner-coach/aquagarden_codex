@@ -22,12 +22,12 @@ python3 -m http.server 4173
 브라우저에서 아래 주소를 엽니다.
 
 ```text
-http://127.0.0.1:4173/aquagarden_codex.html
+http://127.0.0.1:4173/index.html
 ```
 
 ## 주요 파일
 
-- `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+- `/Users/friends/ai/aquagarden_2026_codex/index.html`
   - 메인 앱 엔트리. HTML/CSS/JavaScript가 한 파일에 들어 있습니다.
 - `/Users/friends/ai/aquagarden_2026_codex/AGENTS.md`
   - 프로젝트 운영 규칙

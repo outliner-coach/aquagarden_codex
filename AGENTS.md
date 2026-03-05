@@ -30,7 +30,7 @@
 ├── AGENTS.md
 ├── PLAN.md
 ├── PROGRESS.md
-├── aquagarden_codex.html
+├── index.html
 ├── skills/
 │   └── aquagarden-project/
 │       ├── SKILL.md
@@ -55,7 +55,7 @@
 - `skills/aquagarden-project/`
   - 이 프로젝트를 이어받아 작업하는 에이전트를 위한 전용 스킬
   - 커맨드 구조, 작업 라우팅, 프로젝트 특화 규칙을 포함한다
-- `aquagarden_codex.html`
+- `index.html`
   - 현재 앱의 메인 엔트리
   - HTML, CSS, JavaScript, Three.js import map이 모두 포함된 단일 파일
   - 브라우저에서 직접 열거나 로컬 정적 서버로 실행 가능
@@ -73,7 +73,7 @@
 ```text
 /Users/friends/ai/aquagarden_2026_codex
 ├── AGENTS.md
-├── aquagarden_codex.html
+├── index.html
 ├── src/
 │   ├── app/
 │   ├── scene/

@@ -10,7 +10,7 @@
 ## 현재 상태 요약
 
 - 앱 형태: `단일 HTML 파일 기반 브라우저 앱`
-- 메인 엔트리: `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+- 메인 엔트리: `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 현재 목적: 관상용 3D 디지털 수족관의 심미성, 몰입감, 상호작용 품질 고도화
 - 협업 문서:
   - `/Users/friends/ai/aquagarden_2026_codex/AGENTS.md`
@@ -113,7 +113,7 @@
   - `/Users/friends/ai/aquagarden_2026_codex/AGENTS.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -131,7 +131,7 @@
   - 메인 유목에 보조 가지와 잔가지를 추가해 실루엣 밀도를 높였다.
   - 유목 표면에 활착 이끼 느낌의 작은 군락을 추가해 하드스케이프 연결감을 보강했다.
 - 변경 파일
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - Playwright 캡처 기준으로 기존보다 유목 실루엣이 풍성해진 것 확인
 - 인수인계 메모
@@ -143,7 +143,7 @@
   - 수초 블레이드에 곡률과 테이퍼를 추가해 평면 종이 느낌을 줄였다.
   - 바위 지오메트리 분할 수를 높이고 변형 강도를 조정해 표면을 조금 더 자연스럽게 만들었다.
 - 변경 파일
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - Playwright 캡처 기준으로 수초와 바위의 직선적/각진 느낌이 일부 완화됨
 - 인수인계 메모
@@ -159,7 +159,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -180,7 +180,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -200,7 +200,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -220,7 +220,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -242,7 +242,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -259,7 +259,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -278,7 +278,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -298,7 +298,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - 현재 샌드박스 정책상 로컬 서버 포트 바인딩이 차단되어 Playwright 시각 검증은 이번 턴에서 수행하지 못함
@@ -314,7 +314,7 @@
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 추출 스크립트 기준 `node --check` 통과
   - Playwright 브라우저 로드 확인
@@ -366,6 +366,24 @@
 - 인수인계 메모
   - 현재 커밋 해시는 `903ffa2`다.
 
+#### DOC-009
+
+- 완료 내용
+  - GitHub Pages 기본 경로에서 바로 앱이 열리도록 메인 파일명을 `index.html`로 변경했다.
+  - 문서와 프로젝트 스킬에서 메인 엔트리 경로 참조를 `index.html`로 통일했다.
+- 변경 파일
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/AGENTS.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/README.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/skills/aquagarden-project/SKILL.md`
+- 검증
+  - `node --check` 기준 모듈 스크립트 문법 검사 통과
+  - 로컬 실행 URL을 `http://127.0.0.1:4173/index.html`로 업데이트
+- 인수인계 메모
+  - GitHub Pages가 활성화되면 저장소 루트 주소에서 자동으로 `index.html`을 서빙한다.
+
 ### 2026-02-22
 
 #### APP-001
@@ -374,7 +392,7 @@
   - 브라우저만으로 실행 가능한 3D 디지털 수족관 앱의 초기 버전을 구현했다.
   - 단일 HTML 파일 안에 Three.js 기반 씬, 수조, 바위, 유목, 수초, 물고기, 기포, 조명 UI, 명언 패널을 구성했다.
 - 변경 파일
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 브라우저에서 로드 가능한 상태로 저장됨
 - 인수인계 메모
@@ -385,7 +403,7 @@
 - 완료 내용
   - 물고기 3종 이상, 자유 유영, 지느러미/꼬리 애니메이션, 수초 흔들림, 기포 상승, 조명 제어, 클릭 명언 표시를 구현했다.
 - 변경 파일
-  - `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
 - 검증
   - 시각 미리보기 이미지 생성
 - 관련 파일
@@ -401,6 +419,6 @@
 - 현재 가장 자연스러운 다음 단계는 `심미성 개선`이다.
 - 사용자 피드백 이후 우선순위는 `AQ-108`, `AQ-109`, `AQ-110` 후 `AQ-101` 순서로 바뀌었다.
 - 조사 기반 판단은 `references/` 폴더 문서를 우선 참고한다.
-- 큰 변경 전에는 `aquagarden_codex.html`의 단일 파일 유지 여부를 먼저 판단한다.
+- 큰 변경 전에는 `index.html`의 단일 파일 유지 여부를 먼저 판단한다.
 - 시각 조정 작업은 가능하면 브라우저 확인과 캡처를 함께 남긴다.
 - `AQ-101`은 1차 구도 패치가 들어가 있지만 현재는 사용자 피드백 때문에 보류 상태다.

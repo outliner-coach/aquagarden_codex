@@ -1,6 +1,6 @@
 ---
 name: aquagarden-project
-description: Continue work on the AquaGarden digital aquarium project in `/Users/friends/ai/aquagarden_2026_codex`. Use when Codex needs to plan, research, implement, verify, or hand off work for this specific project; when editing `aquagarden_codex.html`, `AGENTS.md`, `PLAN.md`, `PROGRESS.md`, or project `references/`; or when coordinating aesthetic improvements, rendering changes, workflow docs, and multi-agent collaboration rules.
+description: Continue work on the AquaGarden digital aquarium project in `/Users/friends/ai/aquagarden_2026_codex`. Use when Codex needs to plan, research, implement, verify, or hand off work for this specific project; when editing `index.html`, `AGENTS.md`, `PLAN.md`, `PROGRESS.md`, or project `references/`; or when coordinating aesthetic improvements, rendering changes, workflow docs, and multi-agent collaboration rules.
 ---
 
 # AquaGarden Project
@@ -18,7 +18,7 @@ description: Continue work on the AquaGarden digital aquarium project in `/Users
 ### 1. Sync context
 
 - Confirm the current file structure and the active app entrypoint.
-- Treat `/Users/friends/ai/aquagarden_2026_codex/aquagarden_codex.html` as the default implementation target.
+- Treat `/Users/friends/ai/aquagarden_2026_codex/index.html` as the default implementation target.
 - Keep the app browser-only unless the user explicitly asks for a stack change.
 
 ### 2. Route the request
