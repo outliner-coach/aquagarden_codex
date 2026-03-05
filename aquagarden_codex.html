@@ -1329,11 +1329,11 @@
       createPlantCluster({
         x: 5.7,
         z: -2.0,
-        count: 44,
-        spread: 1.25,
-        palette: [0x8a2c38, 0xa6384a, 0xbd5562, 0x9f3342],
-        maxHeight: 3.8,
-        minHeight: 1.55,
+        count: 26,
+        spread: 0.92,
+        palette: [0x6f3940, 0x82454f, 0x955562, 0x74424b],
+        maxHeight: 3.3,
+        minHeight: 1.45,
         label: '붉은 수초',
         quote: '색이 진하다는 건 빛을 많이 견뎠다는 뜻이다.'
       });
@@ -1745,13 +1745,13 @@
       rig.add(bodyGroup);
 
       const bodyMap = createFishSkinTexture({
-        top: '#173a76',
-        mid: '#2558ad',
-        belly: '#b2bfcd',
-        accent: 'rgba(118, 243, 255, 0.95)',
+        top: '#1f3f73',
+        mid: '#3a629d',
+        belly: '#bcc6d1',
+        accent: 'rgba(120, 212, 228, 0.72)',
         accentBand: { start: 0.18, end: 0.78, y: 0.38, height: 0.12 },
         stripes: [
-          { color: 'rgba(255, 109, 102, 0.92)', y: 0.56, height: 0.16, alpha: 0.92 },
+          { color: 'rgba(221, 120, 112, 0.62)', y: 0.56, height: 0.16, alpha: 0.64 },
           { color: 'rgba(12, 34, 78, 0.36)', y: 0.08, height: 0.18, alpha: 0.6 }
         ],
         speckles: 120
@@ -1773,12 +1773,12 @@
       bodyGroup.add(body);
 
       const shimmerMat = new THREE.MeshPhysicalMaterial({
-        color: 0xb2f7ff,
-        emissive: 0x10485d,
-        emissiveIntensity: 0.18,
+        color: 0x9fd9e3,
+        emissive: 0x0b2e3c,
+        emissiveIntensity: 0.1,
         transparent: true,
-        opacity: 0.18,
-        roughness: 0.28,
+        opacity: 0.12,
+        roughness: 0.34,
         metalness: 0.04,
         side: THREE.DoubleSide
       });
@@ -1795,13 +1795,13 @@
         peduncleRadius: 0.055,
         tailLength: 0.56,
         tailHeight: 0.5,
-        peduncleMaterial: new THREE.MeshStandardMaterial({ color: 0x365996, roughness: 0.48, metalness: 0.05 }),
+        peduncleMaterial: new THREE.MeshStandardMaterial({ color: 0x4a6698, roughness: 0.5, metalness: 0.03 }),
         tailMaterial: new THREE.MeshPhysicalMaterial({
-          color: 0xff8a7c,
-          roughness: 0.32,
+          color: 0xd68c84,
+          roughness: 0.38,
           metalness: 0.01,
           transparent: true,
-          opacity: 0.8,
+          opacity: 0.68,
           clearcoat: 0.08,
           side: THREE.DoubleSide
         })
@@ -1893,13 +1893,13 @@
       rig.add(bodyGroup);
 
       const bodyMap = createFishSkinTexture({
-        top: '#7b4d15',
-        mid: '#b87426',
-        belly: '#efd5a1',
-        accent: 'rgba(118, 74, 18, 0.58)',
+        top: '#76562e',
+        mid: '#aa814d',
+        belly: '#e8d7b5',
+        accent: 'rgba(112, 80, 40, 0.45)',
         accentBand: { start: 0.12, end: 0.72, y: 0.41, height: 0.09 },
         stripes: [
-          { color: 'rgba(255, 230, 176, 0.75)', y: 0.62, height: 0.14, alpha: 0.68 },
+          { color: 'rgba(240, 220, 174, 0.58)', y: 0.62, height: 0.14, alpha: 0.56 },
           { color: 'rgba(76, 44, 10, 0.28)', y: 0.14, height: 0.16, alpha: 0.4 }
         ],
         speckles: 96
@@ -2152,13 +2152,13 @@
         {
           key: 'neon',
           label: '네온 테트라',
-          count: 10,
-          speed: 1.38,
+          count: 7,
+          speed: 1.2,
           minY: 1.4,
           maxY: 6.4,
-          schooling: 0.52,
-          separation: 1.05,
-          personalSpace: 0.82,
+          schooling: 0.42,
+          separation: 1.12,
+          personalSpace: 0.9,
           tailAmp: 0.58,
           finSpeed: 6.6,
           tailFrequency: 1.42,
@@ -2179,13 +2179,13 @@
         {
           key: 'amber',
           label: '앰버 라스보라',
-          count: 6,
-          speed: 1.12,
+          count: 4,
+          speed: 0.96,
           minY: 1.0,
           maxY: 5.8,
-          schooling: 0.22,
+          schooling: 0.17,
           separation: 0.92,
-          personalSpace: 0.9,
+          personalSpace: 0.98,
           tailAmp: 0.46,
           finSpeed: 5.5,
           tailFrequency: 1.26,
@@ -2206,8 +2206,8 @@
         {
           key: 'angel',
           label: '엔젤피시',
-          count: 3,
-          speed: 0.8,
+          count: 2,
+          speed: 0.72,
           minY: 2.3,
           maxY: 7.5,
           schooling: 0.06,
@@ -2238,25 +2238,25 @@
 
         for (let i = 0; i < spec.count; i += 1) {
           const fishModel = spec.creator();
-          const scale = spec.key === 'angel' ? rand(0.64, 0.82) : rand(0.74, 1.0);
+          const scale = spec.key === 'angel' ? rand(0.58, 0.74) : rand(0.66, 0.9);
           fishModel.root.scale.setScalar(scale);
           fishModel.root.position.copy(randomTarget(spec.minY, spec.maxY));
 
           const initialVelocity = new THREE.Vector3(rand(-1, 1), rand(-0.18, 0.18), rand(-1, 1))
             .normalize()
-            .multiplyScalar(spec.speed * rand(0.9, 1.08));
+            .multiplyScalar(spec.speed * rand(0.86, 1.02));
 
           const fish = {
             ...fishModel,
             species: spec,
-            baseSpeed: spec.speed * rand(0.92, 1.1),
+            baseSpeed: spec.speed * rand(0.88, 1.04),
             velocity: initialVelocity,
             target: randomTarget(spec.minY, spec.maxY),
             phase: Math.random() * Math.PI * 2,
             rollAmp: rand(0.08, 0.2),
             heading: initialVelocity.clone().normalize(),
             turn: 0,
-            cruiseBias: rand(0.88, 1.16),
+            cruiseBias: rand(0.84, 1.08),
             cruiseFreq: rand(0.65, 1.12),
             retargetAt: rand(1.5, 4.6),
             laneY: rand(spec.minY + 0.5, spec.maxY - 0.5),
