@@ -371,10 +371,12 @@
 - 완료 내용
   - GitHub Pages 기본 경로에서 바로 앱이 열리도록 메인 파일명을 `index.html`로 변경했다.
   - 문서와 프로젝트 스킬에서 메인 엔트리 경로 참조를 `index.html`로 통일했다.
+  - `.nojekyll` 파일을 추가해 GitHub Pages가 정적 루트의 `index.html`을 직접 서빙하도록 고정했다.
 - 변경 파일
   - `/Users/friends/ai/aquagarden_2026_codex/index.html`
   - `/Users/friends/ai/aquagarden_2026_codex/AGENTS.md`
   - `/Users/friends/ai/aquagarden_2026_codex/README.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/.nojekyll`
   - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
   - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
   - `/Users/friends/ai/aquagarden_2026_codex/skills/aquagarden-project/SKILL.md`

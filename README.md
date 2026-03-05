@@ -25,6 +25,16 @@ python3 -m http.server 4173
 http://127.0.0.1:4173/index.html
 ```
 
+## GitHub Pages
+
+GitHub Pages 주소:
+
+```text
+https://outliner-coach.github.io/aquagarden_codex/
+```
+
+루트 경로에서 바로 열리도록 메인 엔트리는 `index.html`로 유지합니다.
+
 ## 주요 파일
 
 - `/Users/friends/ai/aquagarden_2026_codex/index.html`
