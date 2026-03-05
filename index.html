@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3D 디지털 수족관</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D 디지털 수족관</title>
+    <link rel="icon" href="data:," />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet" />
@@ -768,8 +769,8 @@
         geo,
         new THREE.MeshPhysicalMaterial({
           map: rockMap,
-          color: 0xf3f7f2,
-          roughness: 0.9,
+          color: 0xffffff,
+          roughness: 0.84,
           metalness: 0.01
         })
       );
@@ -780,21 +781,88 @@
       scene.add(rocks);
 
       const placements = [
-        { p: [-6.4, 1.55, -1.7], s: 2.55, c: 0x55645b },
-        { p: [-5.0, 1.75, -0.95], s: 2.35, c: 0x607168 },
-        { p: [-3.45, 1.25, -0.2], s: 1.95, c: 0x4e5e55 },
-        { p: [-2.45, 0.94, 0.35], s: 1.4, c: 0x5b6d62 },
-        { p: [-1.65, 0.66, 0.9], s: 0.95, c: 0x57695f },
-        { p: [0.8, 0.66, -2.2], s: 1.0, c: 0x4f6259 },
-        { p: [4.2, 0.68, -2.0], s: 1.08, c: 0x61756a },
-        { p: [6.0, 0.5, -1.15], s: 0.76, c: 0x65796d },
-        { p: [7.1, 0.36, 0.15], s: 0.58, c: 0x56675d }
+        { p: [-6.45, 1.68, -1.62], s: 2.7, c: 0x55645b, sy: 0.88, sz: 1.18 },
+        { p: [-5.05, 1.82, -0.96], s: 2.38, c: 0x607168, sy: 0.84, sz: 1.12 },
+        { p: [-3.7, 1.34, -0.28], s: 2.02, c: 0x4e5e55, sy: 0.78, sz: 1.13 },
+        { p: [-2.38, 0.98, 0.28], s: 1.46, c: 0x5b6d62, sy: 0.8, sz: 1.08 },
+        { p: [-1.45, 0.72, 0.84], s: 1.02, c: 0x57695f, sy: 0.78, sz: 1.06 },
+        { p: [0.7, 0.72, -2.25], s: 0.98, c: 0x4f6259, sy: 0.85, sz: 1.1 },
+        { p: [4.05, 0.76, -2.05], s: 1.04, c: 0x61756a, sy: 0.78, sz: 1.05 },
+        { p: [4.85, 1.02, -1.3], s: 1.34, c: 0x6d7f73, sy: 0.5, sz: 1.42 },
+        { p: [5.75, 1.24, -0.46], s: 1.62, c: 0x697b70, sy: 0.46, sz: 1.5 },
+        { p: [6.55, 1.06, 0.2], s: 1.26, c: 0x607369, sy: 0.52, sz: 1.36 },
+        { p: [7.22, 0.64, 0.86], s: 0.78, c: 0x5a6d63, sy: 0.64, sz: 1.12 }
       ];
+
+      function addRockMossPatch(position, radius, count, hue = 0) {
+        const patch = new THREE.Group();
+        patch.position.copy(position);
+        rocks.add(patch);
+
+        for (let i = 0; i < count; i += 1) {
+          const isFine = Math.random() < 0.72;
+          const w = isFine ? rand(0.08, 0.17) : rand(0.12, 0.24);
+          const h = isFine ? rand(0.16, 0.32) : rand(0.18, 0.4);
+          const geo = new THREE.PlaneGeometry(w, h, 1, 5);
+          const pos = geo.attributes.position;
+
+          for (let j = 0; j < pos.count; j += 1) {
+            const yRatio = (pos.getY(j) + h * 0.5) / h;
+            pos.setX(j, pos.getX(j) * (1 - yRatio * rand(0.28, 0.5)));
+            pos.setZ(j, Math.sin(yRatio * Math.PI) * rand(0.01, 0.04));
+          }
+
+          pos.needsUpdate = true;
+          geo.computeVertexNormals();
+
+          const mat = new THREE.MeshStandardMaterial({
+            color: isFine ? 0x83bb54 : 0x6ba348,
+            roughness: 0.86,
+            metalness: 0,
+            side: THREE.DoubleSide
+          });
+          mat.color.offsetHSL(hue + rand(-0.02, 0.02), rand(-0.04, 0.04), rand(-0.1, 0.08));
+
+          const blade = new THREE.Mesh(geo, mat);
+          blade.position.set(
+            rand(-radius, radius),
+            rand(-radius * 0.08, radius * 0.2),
+            rand(-radius, radius)
+          );
+          blade.rotation.set(rand(-0.5, 0.5), rand(0, Math.PI * 2), rand(-0.6, 0.6));
+          patch.add(blade);
+        }
+      }
+
+      function addMossCushion(position, radius, color = 0x6ea64a) {
+        const cushion = new THREE.Mesh(
+          new THREE.SphereGeometry(radius, 18, 14),
+          new THREE.MeshStandardMaterial({
+            color,
+            roughness: 0.95,
+            metalness: 0
+          })
+        );
+        cushion.position.copy(position);
+        cushion.scale.set(1.35, 0.72, 1.15);
+        rocks.add(cushion);
+
+        addRockMossPatch(
+          position.clone().add(new THREE.Vector3(0, radius * 0.4, 0)),
+          radius * 0.65,
+          Math.floor(radius * 58),
+          -0.02
+        );
+      }
 
       placements.forEach((item) => {
         const rock = createRock(item.s, item.c);
         rock.position.set(item.p[0], item.p[1], item.p[2]);
-        rock.scale.set(1, rand(0.7, 1.1), rand(0.9, 1.2));
+        rock.scale.set(
+          rand(0.92, 1.06),
+          item.sy ?? rand(0.72, 1.0),
+          item.sz ?? rand(0.95, 1.22)
+        );
         rocks.add(rock);
 
         if (item.s > 0.9) {
@@ -804,6 +872,15 @@
           });
         }
       });
+
+      addRockMossPatch(new THREE.Vector3(-5.95, 2.06, -1.58), 0.46, 46, -0.03);
+      addRockMossPatch(new THREE.Vector3(-4.85, 2.22, -0.98), 0.42, 40, -0.02);
+      addRockMossPatch(new THREE.Vector3(-3.78, 1.76, -0.46), 0.34, 26, -0.01);
+      addRockMossPatch(new THREE.Vector3(5.42, 1.7, -0.62), 0.25, 18, 0.02);
+      addRockMossPatch(new THREE.Vector3(6.28, 1.42, 0.1), 0.22, 14, 0.01);
+      addMossCushion(new THREE.Vector3(-5.7, 2.2, -1.3), 0.54, 0x7ab553);
+      addMossCushion(new THREE.Vector3(-4.95, 2.28, -1.02), 0.48, 0x73ae4e);
+      addMossCushion(new THREE.Vector3(-4.25, 2.06, -0.6), 0.34, 0x6fa84a);
 
       markInteractive(
         rocks,
@@ -1162,6 +1239,46 @@
         10
       );
 
+      addTaperedBranch(
+        [
+          [-5.9, 3.35, -2.35],
+          [-4.45, 4.85, -2.9],
+          [-2.55, 6.45, -3.22],
+          [-0.25, 7.65, -3.2],
+          [2.05, 8.18, -2.92]
+        ],
+        0.082,
+        0.019,
+        darkWoodMat,
+        14
+      );
+
+      addTaperedBranch(
+        [
+          [-4.9, 3.15, -1.62],
+          [-3.2, 4.8, -0.96],
+          [-1.02, 6.05, -0.22],
+          [1.28, 6.92, 0.62],
+          [2.95, 7.48, 1.28]
+        ],
+        0.075,
+        0.018,
+        woodMat,
+        13
+      );
+
+      addTaperedBranch(
+        [
+          [-3.35, 5.18, -2.62],
+          [-2.25, 6.3, -3.42],
+          [-1.15, 7.02, -4.02]
+        ],
+        0.04,
+        0.012,
+        darkWoodMat,
+        8
+      );
+
       addMossCluster(new THREE.Vector3(-5.55, 2.1, -2.05), 18, 0.22);
       addMossCluster(new THREE.Vector3(-4.75, 3.2, -1.72), 16, 0.2);
       addMossCluster(new THREE.Vector3(-3.85, 4.08, -1.82), 14, 0.18);
@@ -1305,11 +1422,11 @@
       createPlantCluster({
         x: -5.95,
         z: -0.8,
-        count: 56,
-        spread: 1.7,
+        count: 72,
+        spread: 1.75,
         palette: [0x4f9d3f, 0x6ebf45, 0x3f8c3f, 0x7ac663],
         maxHeight: 4.2,
-        minHeight: 1.5,
+        minHeight: 1.25,
         label: '수초 군락',
         quote: '물속의 풀잎은 서두르지 않는다. 흐름에 맞춰 흔들릴 뿐이다.'
       });
@@ -1317,23 +1434,23 @@
       createPlantCluster({
         x: -3.0,
         z: 0.55,
-        count: 34,
-        spread: 1.15,
+        count: 48,
+        spread: 1.25,
         palette: [0x5fae46, 0x6cbe4f, 0x85cd64],
         maxHeight: 2.5,
-        minHeight: 0.9,
+        minHeight: 0.72,
         label: '중앙 수초',
         quote: '작은 잎들이 모여 물의 풍경을 만든다. 삶도 그렇게 밀도를 얻는다.'
       });
 
       createPlantCluster({
-        x: 5.7,
-        z: -2.0,
-        count: 26,
-        spread: 0.92,
-        palette: [0x6f3940, 0x82454f, 0x955562, 0x74424b],
-        maxHeight: 3.3,
-        minHeight: 1.45,
+        x: 6.2,
+        z: -0.95,
+        count: 34,
+        spread: 0.98,
+        palette: [0x723540, 0x87424d, 0x95505f, 0x7b404a],
+        maxHeight: 3.5,
+        minHeight: 1.4,
         label: '붉은 수초',
         quote: '색이 진하다는 건 빛을 많이 견뎠다는 뜻이다.'
       });
@@ -1360,6 +1477,54 @@
         minHeight: 1.25,
         label: '배경 수초',
         quote: '배경은 조용해야 전경의 숨결이 더 또렷해진다.'
+      });
+
+      createPlantCluster({
+        x: -4.9,
+        z: -1.45,
+        count: 62,
+        spread: 1.04,
+        palette: [0x71ba52, 0x8acc66, 0x61a947, 0x7cc15f],
+        maxHeight: 1.95,
+        minHeight: 0.45,
+        label: '이끼성 전경 수초',
+        quote: '낮은 자리의 밀도가 풍경의 진짜 깊이를 만든다.'
+      });
+
+      createPlantCluster({
+        x: -3.8,
+        z: -0.35,
+        count: 56,
+        spread: 1.02,
+        palette: [0x72b853, 0x8acc64, 0x63a447],
+        maxHeight: 1.82,
+        minHeight: 0.36,
+        label: '바위 상단 군락',
+        quote: '돌 위로 번지는 초록은 시간이 쌓인 자리에서만 자란다.'
+      });
+
+      createPlantCluster({
+        x: 5.95,
+        z: -0.75,
+        count: 32,
+        spread: 0.86,
+        palette: [0x5a9643, 0x6cad4d, 0x7bbe5d],
+        maxHeight: 2.4,
+        minHeight: 0.72,
+        label: '우측 완충 수초',
+        quote: '강한 형태 사이에 부드러운 식재가 들어오면 풍경이 안정된다.'
+      });
+
+      createPlantCluster({
+        x: 3.25,
+        z: 2.05,
+        count: 54,
+        spread: 2.45,
+        palette: [0x6bab4e, 0x78b55a, 0x5f9a45],
+        maxHeight: 1.02,
+        minHeight: 0.34,
+        label: '전경 잔디 수초',
+        quote: '전경의 잔디는 물속 풍경의 호흡을 고르게 만든다.'
       });
     }
 

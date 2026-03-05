@@ -306,6 +306,44 @@
   - 사용자 환경에서 브라우저로 한 번 확인해 물고기 존재감이 충분히 낮아졌는지 최종 튜닝하는 것이 좋다.
   - 다음 자연스러운 작업은 `AQ-101` 재개(구도/여백 정리) 또는 `AQ-104` 관상 모드 UX 추가다.
 
+#### AQ-109 추가 기록 4
+
+- 완료 내용
+  - 사용자가 제공한 레퍼런스 이미지(`/Users/friends/ai/aquagarden_2026_codex/reference.png`)를 기준으로 유목 실루엣을 재조정했다.
+  - 좌측에서 우측 상단으로 뻗는 아치형 가지와 세부 잔가지를 추가해 상부 유목 존재감을 강화했다.
+- 변경 파일
+  - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
+- 검증
+  - 추출 스크립트 기준 `node --check` 통과
+  - Playwright 브라우저 로드 확인
+  - 콘솔 메시지 `0`건
+  - 캡처 저장
+    - `/Users/friends/ai/aquagarden_2026_codex/aq-reference-inspired-v3.png`
+- 인수인계 메모
+  - 유목 방향성과 상단 실루엣은 레퍼런스와 더 가까워졌고, 이후에는 구도(`AQ-101`)와 함께 포컬 지점 위치를 미세조정하면 좋다.
+
+#### AQ-110 추가 기록 3
+
+- 완료 내용
+  - 레퍼런스 이미지 기준으로 수초/바위 구성을 보강했다.
+  - 좌측 대형 바위에 이끼 패치와 이끼 쿠션(볼륨)을 추가해 녹색 덩어리감을 만들었다.
+  - 우측 바위를 더 납작한 레이어 형태로 조정하고, 우측 붉은 수초 위치를 전진시켜 시인성을 높였다.
+  - 전경 잔디와 바위 상단 군락 수초를 추가해 식재 밀도를 끌어올렸다.
+- 변경 파일
+  - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
+- 검증
+  - 추출 스크립트 기준 `node --check` 통과
+  - Playwright 브라우저 로드 확인
+  - 콘솔 메시지 `0`건
+  - 캡처 저장
+    - `/Users/friends/ai/aquagarden_2026_codex/aq-reference-inspired-v3.png`
+- 인수인계 메모
+  - 현재 단계는 레퍼런스 반영 1차로, 다음에는 조명 프리셋별 명도 차이를 줄이면서 이끼/바위 대비를 더 자연스럽게 정리하는 것이 좋다.
+
 #### AQ-110 추가 기록 2
 
 - 완료 내용
