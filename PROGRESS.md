@@ -344,6 +344,68 @@
 - 인수인계 메모
   - 현재 단계는 레퍼런스 반영 1차로, 다음에는 조명 프리셋별 명도 차이를 줄이면서 이끼/바위 대비를 더 자연스럽게 정리하는 것이 좋다.
 
+#### AQ-109 추가 기록 5
+
+- 완료 내용
+  - 유목 그룹에 전역 스케일과 위치 보정(`+25%`)을 적용해 포컬 질량을 키웠다.
+  - 상단 포컬 실루엣 강화를 위해 중간 가지 2개와 잔가지 3개를 추가했다.
+  - 이끼/활착 표현은 `addMossCluster`, `addMossCurtain`, `addAttachedLeafCluster` 내부 밀도 스케일로 상향했다.
+  - 유목 관통 완화를 위해 상부 분지 영역에 `swimObstacles` 2개를 추가했다.
+- 변경 파일
+  - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
+- 검증
+  - 추출 스크립트 기준 `node --check` 통과
+  - Playwright 브라우저 로드 확인
+  - 콘솔 메시지 `0`건
+  - 캡처 저장
+    - `/Users/friends/ai/aquagarden_2026_codex/aq-plan-implement-v1.png`
+- 인수인계 메모
+  - 유목 존재감은 크게 올라갔고, 이후 `AQ-101`에서 메인 포컬 위치와 시선 흐름을 다시 정렬하면 완성도가 더 좋아진다.
+
+#### AQ-110 추가 기록 4
+
+- 완료 내용
+  - 식재 생성 함수 `createPlantCluster`에 군락 분포 파라미터(`clusterBias`, `edgeFade`, `heightJitter`)를 추가했다.
+  - 식재 생성 시 `isOpenPathZone` 기반 통로 보호를 적용해 자연 군락형 밀도를 유지하면서 수영 공간을 보호했다.
+  - 좌측 이끼 언덕의 패치 밀도를 1.5배로 올리고 이끼 쿠션 2개를 추가해 볼륨을 확장했다.
+  - 전경/중앙/우측 완충 식재 카운트를 계획 비율로 상향했다.
+- 변경 파일
+  - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
+- 검증
+  - 추출 스크립트 기준 `node --check` 통과
+  - Playwright 브라우저 로드 확인
+  - 콘솔 메시지 `0`건
+  - 캡처 저장
+    - `/Users/friends/ai/aquagarden_2026_codex/aq-plan-implement-v1.png`
+- 인수인계 메모
+  - 현재는 데스크톱 우선 밀도 기준이며, 성능 이슈가 나오면 전경 잔디 → 이끼 커튼 순으로 감산하는 것이 안전하다.
+
+#### AQ-108 추가 기록 3
+
+- 완료 내용
+  - 물고기 유영을 `cruise/school/split` 상태 기반으로 확장했다.
+  - species 설정에 군영 이벤트 파라미터(`schoolEventInterval`, `schoolEventDuration`, `schoolParticipation`, `schoolCohesionBoost`, `schoolLeaderWeight`, `dispersionAfterSchool`)를 추가했다.
+  - 네온 9, 앰버 5, 엔젤 2 구성으로 조정하고, 버킷 단위 부분 군영 이벤트를 도입했다.
+  - 군영 종료 후 분산 복귀(`split`)와 프레임당 속도 변화 제한(speed clamp)을 넣어 움직임 급변을 완화했다.
+  - 군영 중에는 35% 위상 동기화를 적용해 완전 동기화로 보이지 않도록 조정했다.
+- 변경 파일
+  - `/Users/friends/ai/aquagarden_2026_codex/PLAN.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/PROGRESS.md`
+  - `/Users/friends/ai/aquagarden_2026_codex/index.html`
+- 검증
+  - 추출 스크립트 기준 `node --check` 통과
+  - Playwright 40초 관찰 기준 군영→분산 전환 동작 확인
+  - 조명 프리셋 버튼 회귀 확인(`중성 낮/차분한 아침/몽환적 저녁`)
+  - 콘솔 메시지 `0`건
+  - 캡처 저장
+    - `/Users/friends/ai/aquagarden_2026_codex/aq-plan-implement-v1.png`
+- 인수인계 메모
+  - 현재 군영 강도는 중간 설정이며, 추가 튜닝 시 `schoolParticipation`와 `dispersionAfterSchool`부터 조정하는 것이 영향 대비 안전하다.
+
 #### AQ-110 추가 기록 2
 
 - 완료 내용

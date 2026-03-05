@@ -302,6 +302,9 @@
     const tempLook = new THREE.Vector3();
     const tempC = new THREE.Vector3();
     const tempD = new THREE.Vector3();
+    const tempE = new THREE.Vector3();
+    const tempF = new THREE.Vector3();
+    const tempG = new THREE.Vector3();
     const tempMatrix = new THREE.Matrix4();
     const tempQuat = new THREE.Quaternion();
     let activePresetKey = 'day';
@@ -779,6 +782,7 @@
     function createRockscape() {
       const rocks = new THREE.Group();
       scene.add(rocks);
+      const rockMossDensityScale = 1.5;
 
       const placements = [
         { p: [-6.45, 1.68, -1.62], s: 2.7, c: 0x55645b, sy: 0.88, sz: 1.18 },
@@ -798,8 +802,9 @@
         const patch = new THREE.Group();
         patch.position.copy(position);
         rocks.add(patch);
+        const adjustedCount = Math.max(1, Math.round(count * rockMossDensityScale));
 
-        for (let i = 0; i < count; i += 1) {
+        for (let i = 0; i < adjustedCount; i += 1) {
           const isFine = Math.random() < 0.72;
           const w = isFine ? rand(0.08, 0.17) : rand(0.12, 0.24);
           const h = isFine ? rand(0.16, 0.32) : rand(0.18, 0.4);
@@ -881,6 +886,8 @@
       addMossCushion(new THREE.Vector3(-5.7, 2.2, -1.3), 0.54, 0x7ab553);
       addMossCushion(new THREE.Vector3(-4.95, 2.28, -1.02), 0.48, 0x73ae4e);
       addMossCushion(new THREE.Vector3(-4.25, 2.06, -0.6), 0.34, 0x6fa84a);
+      addMossCushion(new THREE.Vector3(-5.28, 2.14, -0.78), 0.41, 0x77b14e);
+      addMossCushion(new THREE.Vector3(-4.58, 2.0, -0.42), 0.36, 0x6ea847);
 
       markInteractive(
         rocks,
@@ -894,9 +901,15 @@
     function createDriftwood() {
       const woodGroup = new THREE.Group();
       scene.add(woodGroup);
+      woodGroup.scale.set(1.25, 1.22, 1.25);
+      woodGroup.position.set(-0.45, 0.08, -0.18);
 
       const woodMap = createWoodTexture(0x7a4d2b);
       const darkWoodMap = createWoodTexture(0x65381e);
+      const mossDensityScale = 1.3;
+      const leafDensityScale = 1.2;
+      const curtainDensityScale = 1.25;
+      const curtainLengthScale = 1.15;
 
       const woodMat = new THREE.MeshPhysicalMaterial({
         map: woodMap,
@@ -961,8 +974,9 @@
         const tuft = new THREE.Group();
         tuft.position.copy(position);
         woodGroup.add(tuft);
+        const adjustedCount = Math.max(1, Math.round(count * mossDensityScale));
 
-        for (let i = 0; i < count; i += 1) {
+        for (let i = 0; i < adjustedCount; i += 1) {
           const bladeGeo = new THREE.PlaneGeometry(rand(0.1, 0.18), rand(0.18, 0.34), 1, 5);
           const pos = bladeGeo.attributes.position;
 
@@ -977,7 +991,7 @@
           bladeGeo.computeVertexNormals();
 
           const blade = new THREE.Mesh(bladeGeo, mossMat.clone());
-          blade.material.color.offsetHSL(rand(-0.02, 0.02), rand(-0.03, 0.03), rand(-0.08, 0.06));
+          blade.material.color.offsetHSL(rand(-0.02, 0.02), rand(-0.03, 0.03), rand(-0.05, 0.11));
           blade.position.set(rand(-spread, spread), rand(-spread * 0.25, spread * 0.45), rand(-spread, spread));
           blade.rotation.set(rand(-0.6, 0.5), rand(0, Math.PI * 2), rand(-0.5, 0.5));
           tuft.add(blade);
@@ -988,8 +1002,9 @@
         const cluster = new THREE.Group();
         cluster.position.copy(position);
         woodGroup.add(cluster);
+        const adjustedCount = Math.max(1, Math.round(count * leafDensityScale));
 
-        for (let i = 0; i < count; i += 1) {
+        for (let i = 0; i < adjustedCount; i += 1) {
           const leafGeo = new THREE.PlaneGeometry(rand(0.12, 0.24), rand(0.22, 0.42), 2, 8);
           const pos = leafGeo.attributes.position;
           for (let j = 0; j < pos.count; j += 1) {
@@ -1006,7 +1021,7 @@
             metalness: 0,
             side: THREE.DoubleSide
           });
-          leafMat.color.offsetHSL(hueShift + rand(-0.02, 0.02), rand(-0.03, 0.03), rand(-0.08, 0.06));
+          leafMat.color.offsetHSL(hueShift + rand(-0.02, 0.02), rand(-0.03, 0.03), rand(-0.05, 0.11));
 
           const leaf = new THREE.Mesh(leafGeo, leafMat);
           leaf.position.set(rand(-spread, spread), rand(-spread * 0.1, spread * 0.28), rand(-spread, spread));
@@ -1019,9 +1034,16 @@
         const curtain = new THREE.Group();
         curtain.position.copy(position);
         woodGroup.add(curtain);
+        const adjustedStrands = Math.max(1, Math.round(strandCount * curtainDensityScale));
+        const adjustedLength = length * curtainLengthScale;
 
-        for (let i = 0; i < strandCount; i += 1) {
-          const strandGeo = new THREE.PlaneGeometry(rand(0.025, 0.05), rand(length * 0.65, length), 1, 8);
+        for (let i = 0; i < adjustedStrands; i += 1) {
+          const strandGeo = new THREE.PlaneGeometry(
+            rand(0.025, 0.05),
+            rand(adjustedLength * 0.65, adjustedLength),
+            1,
+            8
+          );
           const pos = strandGeo.attributes.position;
 
           for (let j = 0; j < pos.count; j += 1) {
@@ -1041,7 +1063,7 @@
             opacity: 0.86,
             side: THREE.DoubleSide
           });
-          strandMat.color.offsetHSL(hueShift + rand(-0.015, 0.02), rand(-0.04, 0.04), rand(-0.08, 0.08));
+          strandMat.color.offsetHSL(hueShift + rand(-0.015, 0.02), rand(-0.04, 0.04), rand(-0.05, 0.12));
 
           const strand = new THREE.Mesh(strandGeo, strandMat);
           strand.position.set(rand(-spread, spread), -rand(0, spread * 0.12), rand(-spread * 0.7, spread * 0.7));
@@ -1259,7 +1281,7 @@
           [-3.2, 4.8, -0.96],
           [-1.02, 6.05, -0.22],
           [1.28, 6.92, 0.62],
-          [2.95, 7.48, 1.28]
+          [2.55, 7.48, 1.28]
         ],
         0.075,
         0.018,
@@ -1279,6 +1301,70 @@
         8
       );
 
+      addTaperedBranch(
+        [
+          [-6.35, 2.75, -2.42],
+          [-4.92, 4.25, -3.05],
+          [-3.15, 5.9, -3.36],
+          [-1.25, 7.45, -3.34],
+          [1.38, 8.44, -3.2]
+        ],
+        0.1,
+        0.022,
+        darkWoodMat,
+        14
+      );
+
+      addTaperedBranch(
+        [
+          [-5.05, 3.02, -1.92],
+          [-3.52, 4.62, -1.25],
+          [-1.68, 6.1, -0.62],
+          [0.32, 7.26, 0.25],
+          [2.35, 8.02, 1.02]
+        ],
+        0.09,
+        0.02,
+        woodMat,
+        13
+      );
+
+      addTaperedBranch(
+        [
+          [-2.95, 6.22, -3.18],
+          [-2.1, 7.08, -3.92],
+          [-1.22, 7.86, -4.35]
+        ],
+        0.048,
+        0.013,
+        darkWoodMat,
+        8
+      );
+
+      addTaperedBranch(
+        [
+          [-0.62, 6.45, -1.12],
+          [0.2, 7.35, -0.6],
+          [1.05, 8.08, -0.14]
+        ],
+        0.045,
+        0.013,
+        woodMat,
+        7
+      );
+
+      addTaperedBranch(
+        [
+          [1.2, 6.86, 0.52],
+          [1.82, 7.72, 1.1],
+          [2.44, 8.46, 1.6]
+        ],
+        0.04,
+        0.011,
+        darkWoodMat,
+        7
+      );
+
       addMossCluster(new THREE.Vector3(-5.55, 2.1, -2.05), 18, 0.22);
       addMossCluster(new THREE.Vector3(-4.75, 3.2, -1.72), 16, 0.2);
       addMossCluster(new THREE.Vector3(-3.85, 4.08, -1.82), 14, 0.18);
@@ -1296,6 +1382,16 @@
       addMossCurtain(new THREE.Vector3(-3.55, 3.7, -1.82), 11, 0.44, 0.16, -0.02);
       addMossCurtain(new THREE.Vector3(-2.4, 4.72, -1.22), 9, 0.34, 0.12, 0.01);
       addMossCurtain(new THREE.Vector3(-1.58, 4.96, -0.42), 8, 0.28, 0.1, 0.02);
+      addMossCurtain(new THREE.Vector3(-0.65, 5.86, -0.05), 9, 0.32, 0.12, 0.01);
+
+      swimObstacles.push({
+        center: new THREE.Vector3(-1.1, 5.75, -1.7),
+        radius: 0.92
+      });
+      swimObstacles.push({
+        center: new THREE.Vector3(0.95, 6.7, -0.2),
+        radius: 1.02
+      });
 
       markInteractive(
         woodGroup,
@@ -1364,18 +1460,48 @@
       return leaf;
     }
 
-    function createPlantCluster({ x, z, count, spread, palette, maxHeight, minHeight, quote, label }) {
+    function createPlantCluster({
+      x,
+      z,
+      count,
+      spread,
+      palette,
+      maxHeight,
+      minHeight,
+      quote,
+      label,
+      clusterBias = 0.35,
+      edgeFade = 0.25,
+      heightJitter = 1.0
+    }) {
       const group = new THREE.Group();
       group.position.set(x, 0, z);
       scene.add(group);
+      const span = Math.max(0.08, maxHeight - minHeight);
+      const adjustedMaxHeight = Math.max(minHeight + 0.08, minHeight + span * heightJitter);
 
-      for (let i = 0; i < count; i += 1) {
+      let placed = 0;
+      let attempts = 0;
+      const maxAttempts = count * 8;
+      while (placed < count && attempts < maxAttempts) {
+        attempts += 1;
+        const angle = rand(0, Math.PI * 2);
+        const radial = Math.pow(Math.random(), 1 + clusterBias * 2.2) * spread;
+        const localX = Math.cos(angle) * radial + rand(-spread, spread) * edgeFade * 0.24;
+        const localZ = Math.sin(angle) * radial + rand(-spread, spread) * edgeFade * 0.24;
+        const worldX = x + localX;
+        const worldZ = z + localZ;
+
+        if (isOpenPathZone(worldX, worldZ) && Math.random() < 0.85) {
+          continue;
+        }
+
         const pivot = new THREE.Object3D();
-        pivot.position.set(rand(-spread, spread), 0, rand(-spread, spread));
+        pivot.position.set(localX, 0, localZ);
         pivot.rotation.x = rand(-0.05, 0.06);
         pivot.rotation.z = rand(-0.1, 0.1);
 
-        const height = rand(minHeight, maxHeight);
+        const height = rand(minHeight, adjustedMaxHeight);
         const bladeColor = palette[Math.floor(rand(0, palette.length))];
         const isBroadLeaf = Math.random() < 0.18;
         const blade = isBroadLeaf
@@ -1409,6 +1535,7 @@
           sway: rand(0.07, 0.25),
           speed: rand(0.8, 1.8)
         });
+        placed += 1;
       }
 
       markInteractive(group, label, quote);
@@ -1422,11 +1549,14 @@
       createPlantCluster({
         x: -5.95,
         z: -0.8,
-        count: 72,
+        count: 88,
         spread: 1.75,
         palette: [0x4f9d3f, 0x6ebf45, 0x3f8c3f, 0x7ac663],
         maxHeight: 4.2,
         minHeight: 1.25,
+        clusterBias: 0.52,
+        edgeFade: 0.2,
+        heightJitter: 1.05,
         label: '수초 군락',
         quote: '물속의 풀잎은 서두르지 않는다. 흐름에 맞춰 흔들릴 뿐이다.'
       });
@@ -1434,11 +1564,14 @@
       createPlantCluster({
         x: -3.0,
         z: 0.55,
-        count: 48,
+        count: 57,
         spread: 1.25,
         palette: [0x5fae46, 0x6cbe4f, 0x85cd64],
         maxHeight: 2.5,
         minHeight: 0.72,
+        clusterBias: 0.48,
+        edgeFade: 0.23,
+        heightJitter: 1.06,
         label: '중앙 수초',
         quote: '작은 잎들이 모여 물의 풍경을 만든다. 삶도 그렇게 밀도를 얻는다.'
       });
@@ -1451,6 +1584,9 @@
         palette: [0x723540, 0x87424d, 0x95505f, 0x7b404a],
         maxHeight: 3.5,
         minHeight: 1.4,
+        clusterBias: 0.58,
+        edgeFade: 0.18,
+        heightJitter: 1.0,
         label: '붉은 수초',
         quote: '색이 진하다는 건 빛을 많이 견뎠다는 뜻이다.'
       });
@@ -1463,6 +1599,9 @@
         palette: [0x4f9d3f, 0x67b54d, 0x85c66b],
         maxHeight: 1.65,
         minHeight: 0.65,
+        clusterBias: 0.42,
+        edgeFade: 0.26,
+        heightJitter: 1.0,
         label: '전경 수초',
         quote: '가장 앞의 작은 생명도 전체 풍경의 균형을 완성한다.'
       });
@@ -1475,6 +1614,9 @@
         palette: [0x538e43, 0x5fae46, 0x7cbc5f],
         maxHeight: 3.2,
         minHeight: 1.25,
+        clusterBias: 0.44,
+        edgeFade: 0.22,
+        heightJitter: 0.98,
         label: '배경 수초',
         quote: '배경은 조용해야 전경의 숨결이 더 또렷해진다.'
       });
@@ -1487,6 +1629,9 @@
         palette: [0x71ba52, 0x8acc66, 0x61a947, 0x7cc15f],
         maxHeight: 1.95,
         minHeight: 0.45,
+        clusterBias: 0.62,
+        edgeFade: 0.2,
+        heightJitter: 1.08,
         label: '이끼성 전경 수초',
         quote: '낮은 자리의 밀도가 풍경의 진짜 깊이를 만든다.'
       });
@@ -1499,6 +1644,9 @@
         palette: [0x72b853, 0x8acc64, 0x63a447],
         maxHeight: 1.82,
         minHeight: 0.36,
+        clusterBias: 0.66,
+        edgeFade: 0.2,
+        heightJitter: 1.05,
         label: '바위 상단 군락',
         quote: '돌 위로 번지는 초록은 시간이 쌓인 자리에서만 자란다.'
       });
@@ -1506,11 +1654,14 @@
       createPlantCluster({
         x: 5.95,
         z: -0.75,
-        count: 32,
+        count: 37,
         spread: 0.86,
         palette: [0x5a9643, 0x6cad4d, 0x7bbe5d],
         maxHeight: 2.4,
         minHeight: 0.72,
+        clusterBias: 0.5,
+        edgeFade: 0.23,
+        heightJitter: 1.0,
         label: '우측 완충 수초',
         quote: '강한 형태 사이에 부드러운 식재가 들어오면 풍경이 안정된다.'
       });
@@ -1518,11 +1669,14 @@
       createPlantCluster({
         x: 3.25,
         z: 2.05,
-        count: 54,
+        count: 69,
         spread: 2.45,
         palette: [0x6bab4e, 0x78b55a, 0x5f9a45],
         maxHeight: 1.02,
         minHeight: 0.34,
+        clusterBias: 0.38,
+        edgeFade: 0.28,
+        heightJitter: 0.94,
         label: '전경 잔디 수초',
         quote: '전경의 잔디는 물속 풍경의 호흡을 고르게 만든다.'
       });
@@ -2317,7 +2471,7 @@
         {
           key: 'neon',
           label: '네온 테트라',
-          count: 7,
+          count: 9,
           speed: 1.2,
           minY: 1.4,
           maxY: 6.4,
@@ -2338,13 +2492,19 @@
           targetWander: 0.9,
           obstacleAvoidance: 1.35,
           verticalWave: 0.18,
+          schoolEventInterval: [8.0, 12.0],
+          schoolEventDuration: [3.0, 4.2],
+          schoolParticipation: 0.68,
+          schoolCohesionBoost: 0.36,
+          schoolLeaderWeight: 0.66,
+          dispersionAfterSchool: 1.55,
           creator: createNeonTetra,
           quote: '가장 작은 물고기도 떼를 이루면 바다처럼 거대한 결정을 만든다.'
         },
         {
           key: 'amber',
           label: '앰버 라스보라',
-          count: 4,
+          count: 5,
           speed: 0.96,
           minY: 1.0,
           maxY: 5.8,
@@ -2365,6 +2525,12 @@
           targetWander: 0.75,
           obstacleAvoidance: 1.18,
           verticalWave: 0.12,
+          schoolEventInterval: [10.0, 14.0],
+          schoolEventDuration: [2.8, 3.8],
+          schoolParticipation: 0.6,
+          schoolCohesionBoost: 0.28,
+          schoolLeaderWeight: 0.58,
+          dispersionAfterSchool: 1.42,
           creator: createAmberRasbora,
           quote: '부드럽게 헤엄치는 힘은 빠름보다 오래 간다.'
         },
@@ -2392,6 +2558,12 @@
           targetWander: 0.46,
           obstacleAvoidance: 1.42,
           verticalWave: 0.08,
+          schoolEventInterval: [16.0, 24.0],
+          schoolEventDuration: [2.0, 3.0],
+          schoolParticipation: 0.35,
+          schoolCohesionBoost: 0.18,
+          schoolLeaderWeight: 0.7,
+          dispersionAfterSchool: 1.2,
           creator: createAngelfish,
           quote: '우아함은 멈춰 있는 모양이 아니라, 흐르는 움직임에서 완성된다.'
         }
@@ -2399,6 +2571,10 @@
 
       species.forEach((spec) => {
         const bucket = [];
+        bucket.mode = 'cruise';
+        bucket.modeUntil = 0;
+        bucket.leader = null;
+        bucket.nextEventAt = rand(...spec.schoolEventInterval);
         speciesBuckets.set(spec.key, bucket);
 
         for (let i = 0; i < spec.count; i += 1) {
@@ -2428,7 +2604,12 @@
             surgeState: 0.92,
             surgeTarget: 1,
             nextSurgeAt: rand(...spec.surgeCycle),
-            hoverPhase: Math.random() * Math.PI * 2
+            hoverPhase: Math.random() * Math.PI * 2,
+            mode: 'cruise',
+            modeUntil: 0,
+            schoolLeader: null,
+            formationOffset: new THREE.Vector3(rand(-0.65, 0.65), rand(-0.22, 0.22), rand(-0.58, 0.58)),
+            nextSchoolCheckAt: rand(...spec.schoolEventInterval)
           };
 
           tempLook.copy(fish.root.position).add(initialVelocity);
@@ -2449,12 +2630,72 @@
           return;
         }
 
+        const spec = bucket[0].species;
+
         tempA.set(0, 0, 0);
         bucket.forEach((fish) => tempA.add(fish.root.position));
         tempA.multiplyScalar(1 / bucket.length);
 
+        if (elapsed > bucket.nextEventAt) {
+          bucket.mode = 'school';
+          bucket.modeUntil = elapsed + rand(...spec.schoolEventDuration);
+          bucket.nextEventAt = elapsed + rand(...spec.schoolEventInterval);
+
+          let leader = bucket[Math.floor(rand(0, bucket.length))];
+          if (Math.random() < spec.schoolLeaderWeight) {
+            let closest = leader;
+            let closestDist = Infinity;
+            bucket.forEach((candidate) => {
+              const d = candidate.root.position.distanceToSquared(tempA);
+              if (d < closestDist) {
+                closestDist = d;
+                closest = candidate;
+              }
+            });
+            leader = closest;
+          }
+          bucket.leader = leader;
+
+          bucket.forEach((fish) => {
+            const joinsSchool = fish === leader || Math.random() < spec.schoolParticipation;
+            if (joinsSchool) {
+              fish.mode = 'school';
+              fish.modeUntil = bucket.modeUntil;
+              fish.schoolLeader = leader;
+            } else if (fish.mode !== 'split') {
+              fish.mode = 'cruise';
+              fish.schoolLeader = null;
+            }
+          });
+        }
+
+        if (bucket.mode === 'school' && elapsed > bucket.modeUntil) {
+          bucket.mode = 'split';
+          bucket.modeUntil = elapsed + rand(1.2, 2.0);
+          bucket.leader = null;
+          bucket.forEach((fish) => {
+            if (fish.mode === 'school') {
+              fish.mode = 'split';
+              fish.modeUntil = bucket.modeUntil;
+              fish.schoolLeader = null;
+              fish.formationOffset.set(rand(-0.8, 0.8), rand(-0.25, 0.25), rand(-0.72, 0.72));
+            }
+          });
+        } else if (bucket.mode === 'split' && elapsed > bucket.modeUntil) {
+          bucket.mode = 'cruise';
+        }
+
         bucket.forEach((fish) => {
-          const spec = fish.species;
+          if (fish.mode === 'school' && elapsed > fish.modeUntil) {
+            fish.mode = 'split';
+            fish.modeUntil = elapsed + rand(1.2, 2.0);
+            fish.schoolLeader = null;
+          } else if (fish.mode === 'split' && elapsed > fish.modeUntil) {
+            fish.mode = 'cruise';
+          }
+
+          const modeSchool = fish.mode === 'school';
+          const modeSplit = fish.mode === 'split';
 
           if (elapsed > fish.nextSurgeAt) {
             fish.surgeTarget = rand(1 - spec.hoverStrength * 0.65, 1 + spec.surgeAmp);
@@ -2490,15 +2731,34 @@
             tempB.normalize();
           }
 
-          if (spec.schooling > 0) {
-            const towardCenter = tempLook.subVectors(tempA, fish.root.position).multiplyScalar(spec.schooling);
+          const schoolingWeight = spec.schooling + (modeSchool ? spec.schoolCohesionBoost : 0) + (modeSplit ? -spec.schooling * 0.45 : 0);
+          if (schoolingWeight > 0) {
+            const towardCenter = tempLook.subVectors(tempA, fish.root.position).multiplyScalar(schoolingWeight);
             tempB.add(towardCenter);
+          }
+
+          if (modeSchool && fish.schoolLeader && fish.schoolLeader !== fish) {
+            tempF.copy(fish.schoolLeader.root.position).add(fish.formationOffset);
+            tempE.subVectors(tempF, fish.root.position);
+            if (tempE.lengthSq() > 0.0001) {
+              tempE.normalize();
+              tempB.addScaledVector(tempE, spec.schooling + spec.schoolCohesionBoost + 0.22);
+            }
+          } else if (modeSplit) {
+            tempE.set(
+              Math.sin(elapsed * 1.62 + fish.phase),
+              Math.sin(elapsed * 1.38 + fish.hoverPhase) * 0.4,
+              Math.cos(elapsed * 1.47 + fish.phase * 1.21)
+            ).normalize();
+            tempB.addScaledVector(tempE, 0.32 * spec.dispersionAfterSchool);
           }
 
           tempB.y +=
             (fish.laneY + Math.sin(elapsed * 0.42 + fish.hoverPhase) * spec.verticalWave - fish.root.position.y) *
             spec.laneBias;
 
+          const personalSpace = spec.personalSpace * (modeSchool ? 0.78 : modeSplit ? 1.14 : 1);
+          const separationWeight = spec.separation * (modeSchool ? 0.74 : modeSplit ? 1.18 : 1);
           tempC.set(0, 0, 0);
           bucket.forEach((other) => {
             if (other === fish) {
@@ -2507,20 +2767,20 @@
 
             tempD.subVectors(fish.root.position, other.root.position);
             const distSq = tempD.lengthSq();
-            const range = spec.personalSpace * spec.personalSpace;
+            const range = personalSpace * personalSpace;
 
             if (distSq > 0.0001 && distSq < range) {
-              const distScale = 1 - Math.sqrt(distSq) / spec.personalSpace;
+              const distScale = 1 - Math.sqrt(distSq) / personalSpace;
               tempC.add(tempD.normalize().multiplyScalar(distScale));
             }
           });
 
-          tempB.addScaledVector(tempC, spec.separation);
+          tempB.addScaledVector(tempC, separationWeight);
 
           swimObstacles.forEach((obstacle) => {
             tempD.subVectors(fish.root.position, obstacle.center);
             const distToObstacle = tempD.length();
-            const safeRadius = obstacle.radius + spec.personalSpace * 0.6;
+            const safeRadius = obstacle.radius + personalSpace * 0.6;
 
             if (distToObstacle > 0.0001 && distToObstacle < safeRadius) {
               const avoidScale = (1 - distToObstacle / safeRadius) * spec.obstacleAvoidance;
@@ -2554,10 +2814,19 @@
             fish.cruiseBias *
             fish.surgeState *
             (0.92 + Math.sin(elapsed * fish.cruiseFreq + fish.phase) * 0.1) *
-            (dist < 2.4 ? THREE.MathUtils.mapLinear(dist, 0, 2.4, 0.42, 1) : 1);
+            (dist < 2.4 ? THREE.MathUtils.mapLinear(dist, 0, 2.4, 0.42, 1) : 1) *
+            (modeSchool ? 1.06 : modeSplit ? 0.92 : 1);
 
-          tempB.normalize().multiplyScalar(targetSpeed);
-          fish.velocity.lerp(tempB, Math.min(1, dt * spec.turnLerp));
+          const currentSpeed = fish.velocity.length();
+          const speedDeltaCap = fish.baseSpeed * dt * (modeSchool ? 1.9 : 1.35);
+          const smoothSpeed = THREE.MathUtils.clamp(
+            targetSpeed,
+            Math.max(0.18, currentSpeed - speedDeltaCap),
+            currentSpeed + speedDeltaCap
+          );
+
+          tempB.normalize().multiplyScalar(smoothSpeed);
+          fish.velocity.lerp(tempB, Math.min(1, dt * spec.turnLerp * (modeSchool ? 1.1 : 1)));
 
           fish.root.position.addScaledVector(fish.velocity, dt);
           fish.root.position.x = THREE.MathUtils.clamp(fish.root.position.x, tank.minX + 0.55, tank.maxX - 0.55);
@@ -2580,7 +2849,12 @@
           }
 
           const speedRatio = THREE.MathUtils.clamp(fish.velocity.length() / fish.baseSpeed, 0.45, 1.3);
-          const beat = elapsed * spec.finSpeed * fish.cruiseFreq + fish.phase;
+          let beat = elapsed * spec.finSpeed * fish.cruiseFreq + fish.phase;
+          if (modeSchool && fish.schoolLeader) {
+            const syncBeat =
+              elapsed * spec.finSpeed * (fish.schoolLeader.cruiseFreq || fish.cruiseFreq) + fish.schoolLeader.phase;
+            beat = THREE.MathUtils.lerp(beat, syncBeat, 0.35);
+          }
 
           fish.tails.forEach((tail) => {
             tail.mesh.rotation.y =
@@ -2598,7 +2872,7 @@
           fish.body.rotation.x = Math.sin(beat * 0.46) * spec.bodyPitch;
           fish.body.position.y = Math.sin(beat * 0.38 + fish.hoverPhase) * (0.03 + spec.hoverStrength * 0.12);
           fish.rig.rotation.z = THREE.MathUtils.clamp(-fish.turn * spec.bankStrength, -0.26, 0.26);
-          fish.rig.rotation.y = Math.sin(beat * 0.54) * fish.rollAmp * 0.2;
+          fish.rig.rotation.y = Math.sin(beat * 0.54) * fish.rollAmp * (modeSchool ? 0.14 : 0.2);
         });
       });
     }
